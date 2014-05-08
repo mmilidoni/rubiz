@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+{% load render_table from django_tables2 %}
+{% include "django_tables2_simplefilter/filter_selection.html" with filters=filters only %}
+
+{% block title %}Elenco anagrafiche{% endblock %}
+
+
+{% block javascript %}
+<script>
+function resetForm() {
+    $('#form_filter :input').val("");
+}
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Elenco anagrafiche</h1>
+
+<h4>Filtri</h4>
+<form action="" method="get" id="form_filter">
+	<table>
+		<tr>
+		{% for f in filter.form %}
+			<td> {{ f.name }} </td>
+		{% endfor %}
+		</tr>
+		<tr>
+                {% for f in filter.form %}
+                        <td> {{ f }} </td>
+                {% endfor %}
+                </tr>
+
+	</table>
+	<button class="btn btn-primary">Applica</button>
+    	<button class="btn btn-default" onclick="javascript:resetForm();">Reset</button>
+</form>
+
+{% render_table table %}
+{% endblock %}
+

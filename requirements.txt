@@ -1,0 +1,15 @@
+Django==1.5.4
+Mako==0.8.1
+South==0.7.5
+django-ajax-selects==1.2.5
+django-datetime-widget==0.6
+django-filter==0.7
+django-mako==0.1.4pre
+django-selectable==0.8.0
+django-tables2==0.14.0
+django-wkhtmltopdf==1.2.2
+docutils==0.11
+reportlab==2.6
+rst2pdf
+virtualenv==1.10.1
+yolk==0.4.3

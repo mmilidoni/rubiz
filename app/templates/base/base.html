@@ -1,0 +1,42 @@
+{% load selectable_tags %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+        <title>{% block title %}{% endblock %} - RUBIZ</title>
+        <link href='http://fonts.googleapis.com/css?family=Duru+Sans' rel='stylesheet' type='text/css' />
+        <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css" />
+	<!-- <link rel="stylesheet" href="{{STATIC_URL}}django_tables2_simplefilter/filter.css" /> -->
+        {% include_jquery_libs %}
+        {% include_ui_theme %}
+        {{ form.media.js }}
+
+        <script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.formset.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+
+        {% block javascript %}{% endblock %}
+    </head>
+    <body>
+        <div id="titlebar">
+            <div id="logo">RUBIZ</div>
+        </div>
+        <div id="menubar">
+            {% include "base/main_menu.html" %}
+        </div>
+        {% for message in messages %}
+        {% if message.tags %} 
+        <div class="messagebar {{ message.tags }}Message">
+            {% else %}
+            <div class="messagebar">
+                {% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+
+    </body>
+</html>
