@@ -3,7 +3,7 @@ Rubiz
 
 Rubiz è una semplice rubrica destinata a privati, piccoli uffici e micro imprese. L'organizzazione dei contatti avviene in modo facile e veloce attraverso l'assegnazione di una o più etichette. E' possibile stampare i contatti filtrandoli per etichetta e così ottenere tre formati di stampa: a righe, rubrica, adesivi (8x3).
 
-![Rubiz Home page](http://s2.postimg.org/rqawupkbt/rubiz.png "Home page")
+![Rubiz Home page](http://s27.postimg.org/vnt3hq9cz/rubiz.png "Home page")
 
 note di installazione
 ---------------------
