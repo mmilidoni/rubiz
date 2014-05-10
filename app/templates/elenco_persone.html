@@ -1,8 +1,9 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 {% load render_table from django_tables2 %}
 {% include "django_tables2_simplefilter/filter_selection.html" with filters=filters only %}
 
-{% block title %}Elenco anagrafiche{% endblock %}
+{% block title %}{% trans "Elenco anagrafiche" %}{% endblock %}
 
 
 {% block javascript %}
@@ -16,14 +17,14 @@ function resetForm() {
 
 
 {% block content %}
-<h1>Elenco anagrafiche</h1>
+<h1>{% trans "Elenco anagrafiche" %}</h1>
 
-<h4>Filtri</h4>
+<h4>{% trans "Filtri" %}</h4>
 <form action="" method="get" id="form_filter">
 	<table>
 		<tr>
 		{% for f in filter.form %}
-			<td> {{ f.name }} </td>
+			<td> {{ f.label }} </td>
 		{% endfor %}
 		</tr>
 		<tr>
@@ -33,8 +34,8 @@ function resetForm() {
                 </tr>
 
 	</table>
-	<button class="btn btn-primary">Applica</button>
-    	<button class="btn btn-default" onclick="javascript:resetForm();">Reset</button>
+	<button class="btn btn-primary">{% trans "Applica" %}</button>
+	<button class="btn btn-default" onclick="javascript:resetForm();">{% trans "Reset" %}</button>
 </form>
 
 {% render_table table %}

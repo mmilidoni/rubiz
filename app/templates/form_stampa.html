@@ -1,9 +1,10 @@
 {% extends "base/base.html" %}
+{% load i18n %}
 
-{% block title %}Form Stampa {{tipo}}{% endblock %}
+{% block title %}{% trans "Form Stampa" %} {{tipo}}{% endblock %}
 
 {% block content %}
-<h1>Stampa {{tipo}}</h1>
+<h1>{% trans "Stampa" %} {{tipo}}</h1>
 {% if form.errors %}
     {% for error in form.non_field_errors %}
         <div class="alert alert-error">
@@ -13,12 +14,12 @@
 {% endif %}
 <form action="/stampa_{{tipo}}/" method="post">
 	{% csrf_token %}
-	Titolo: <input type="text" name="titolo" autofocus="autofocus" /><br />
+	{% trans "Titolo" %}: <input type="text" name="titolo" autofocus="autofocus" /><br />
 	{% for e in etichette %}
 		<label class="checkbox">
 			<input type="checkbox" name="etichette" value="{{e.id}}" /> {{e.nome}}
 		</label>
 	{% endfor %}
-    <input type="submit" value="Stampa" class="btn btn-primary" />
+	<input type="submit" value="{% trans "Stampa" %}" class="btn btn-primary" />
 </form>
 {% endblock %}

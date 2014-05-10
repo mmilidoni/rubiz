@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -8,6 +8,9 @@ urlpatterns = patterns('',
         url(r'^$', 'app.views.elenco_persone'),
         url(r'^login$', 'app.views.userlogin'),
         url(r'^logout$', 'app.views.userlogout'),
+        url(r'^lang$', 'app.views.form_lingua'),
+        url(r'^cambia_lingua/(?P<l>[a-z]+)/$', 'app.views.cambia_lingua'),
+        (r'^i18n/', include('django.conf.urls.i18n')),
 
         url(r'^stampa_elenco/$', 'app.views.stampa_elenco'),
         url(r'^stampa_rubrica/$', 'app.views.stampa_rubrica'),

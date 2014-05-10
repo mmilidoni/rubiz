@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from app.models import Persona, Etichetta
 from app.tables import PersonaTable, EtichettaTable
 from app.forms import PersonaForm, EtichettaForm
@@ -11,6 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from app.util import render_html_download_pdf
 from django.utils.translation import ugettext as _
+from django.template import RequestContext
+from django.utils import translation
 
 def userlogin(request):
     if request.method == 'POST':
@@ -22,10 +24,10 @@ def userlogin(request):
                 login(request, user)
                 return HttpResponseRedirect('/elenco_persone')
 
-        messages.add_message(request, messages.ERROR, _('LOGINFAILED'))
+        messages.add_message(request, messages.ERROR, _('Login fallito.'))
         return render(request, 'login.html', {})
     elif not request.user.is_authenticated():
-        messages.add_message(request, messages.INFO, 'Effettua il login.')
+        messages.add_message(request, messages.INFO, _('Effettua il login.'))
         return render(request, 'login.html', {})
     else: 
 	return HttpResponseRedirect('/elenco_persone')
@@ -53,13 +55,13 @@ def form_persona(request, pk = None):
         form = PersonaForm(request.POST, instance=obj)
         if form.is_valid():
             if form.save():
-                messages.add_message(request, messages.INFO, 'Anagrafica salvata con successo.')
+                messages.add_message(request, messages.INFO, _('Anagrafica salvata con successo.'))
                 return HttpResponseRedirect('/elenco_persone')
             else:
-                messages.add_message(request, messages.ERROR, "Errore nel salvataggio dell'anagrafica. Impossibile salvare.")
+                messages.add_message(request, messages.ERROR, _("Errore nel salvataggio dell'anagrafica. Impossibile salvare."))
                 return HttpResponseRedirect('/elenco_persone')
         else:
-            messages.add_message(request, messages.ERROR, "Errore nel salvataggio dell'anagrafica. Campi non validi.")
+            messages.add_message(request, messages.ERROR, _("Errore nel salvataggio dell'anagrafica. Campi non validi."))
             return render(request, "form_persona.html", {"form": form, "pk":pk})
     else:
         if pk:
@@ -74,7 +76,7 @@ def elimina_persona(request, pk = None):
     if pk:
         obj = get_object_or_404(Persona, pk=pk)
         obj.delete()
-        messages.add_message(request, messages.INFO, "Anagrafica eliminata con successo")
+        messages.add_message(request, messages.INFO, _("Anagrafica eliminata con successo"))
         return HttpResponseRedirect('/elenco_persone')
 
 @login_required
@@ -93,10 +95,10 @@ def form_etichetta(request, pk = None):
         form = EtichettaForm(request.POST, instance=obj)
         if form.is_valid():
             if form.save():
-                messages.add_message(request, messages.INFO, 'Etichetta salvata con successo.')
+                messages.add_message(request, messages.INFO, _('Etichetta salvata con successo.'))
                 return HttpResponseRedirect('/elenco_etichette')
 
-        messages.add_message(request, messages.ERROR, "Errore nel salvataggio dell'etichetta.")
+        messages.add_message(request, messages.ERROR, _("Errore nel salvataggio dell'etichetta."))
         return render(request, "form_etichetta.html", {"form": form, "pk":pk})
     else:
         if pk:
@@ -111,7 +113,7 @@ def elimina_etichetta(request, pk = None):
     if pk:
         obj = get_object_or_404(Etichetta, pk=pk)
         obj.delete()
-        messages.add_message(request, messages.INFO, "etichetta eliminata con successo")
+        messages.add_message(request, messages.INFO, _("etichetta eliminata con successo"))
         return HttpResponseRedirect('/elenco_etichette')
 
 @login_required
@@ -167,3 +169,16 @@ def stampa_etichette(request):
             }
         return render_html_download_pdf(request=request, template=template, context=context, margin="-T 4 -B 4 -L 4 -R 4")
 
+
+def form_lingua(request):
+    return render_to_response('lang.html', {
+    'available_languages': ['en', 'it'],
+        }, RequestContext(request))
+
+#    return render(request, "lang.html", {'available_languages': ['en', 'it']})
+
+
+def cambia_lingua(request, l):
+    translation.activate(l)
+    request.session[translation.LANGUAGE_SESSION_KEY] = l
+    return HttpResponseRedirect('/')

@@ -10,7 +10,7 @@ class Item(object):
         if not isinstance(slug, str):
             raise TypeError('item slug should be a string, not %s' % slug.__class__.__name__)
         if display != None and not isinstance(display, (str)):
-            raise TypeError('item slug should be a string, not %s' % display.__class__.__name__)
+            raise TypeError('item slug should be a string, not %s' % (display.__class__.__name__))
         super(Item, self).__init__()
         self.value = value
         self.slug = slug
