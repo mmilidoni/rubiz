@@ -9,7 +9,7 @@ def render_html_download_pdf(request, template, context, margin = "", fileout="o
     f = open(file_html, 'w')
     f.write(render(request, template, context).content)
     f.close()
-    subprocess.call('wkhtmltopdf ' + margin + ' ' + file_html + ' ' + basepath + "/" + fileout, shell=True)
+    subprocess.call('/home/mmichele/wkhtmltopdf ' + margin + ' ' + file_html + ' ' + basepath + "/" + fileout, shell=True)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="' + fileout + '"'
 

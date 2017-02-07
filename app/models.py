@@ -2,15 +2,8 @@ from django.db import models
 from . import enum
 from django.utils.translation import ugettext as _
 
-class TipoEtichetta(enum.Enumeration):
-    intero = enum.Item(1, 'integer', 'Integer')
-    stringa = enum.Item(2, 'string', 'Text')
-    booleano = enum.Item(3, 'boolean', 'Y/N')
-
-
 class Etichetta(models.Model):
     nome = models.CharField(max_length=255, verbose_name=_("Nome"))
-    tipo = enum.EnumField(TipoEtichetta, verbose_name=_("Tipo"))
 
     def __unicode__(self):
         return self.nome

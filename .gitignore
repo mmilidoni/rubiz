@@ -12,3 +12,6 @@ nbproject
 Rubiz.egg-info
 dist
 build
+app/hello.html
+app/out.pdf
+rubiz/settings.py
